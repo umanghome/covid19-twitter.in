@@ -1,4 +1,6 @@
 <script>
+  import { tick } from 'svelte';
+
   const inputs = {
     cities: "",
     other: ""
@@ -38,6 +40,31 @@
     }
   };
   let links = [];
+  let popularCityLinks = [];
+
+  $: (alsoSearchFor, inputs, checkboxes, generatePopularCityLinks());
+
+  const POPULAR_CITIES = [
+      'delhi',
+      'pune',
+      'mumbai',
+      'bangalore',
+      'thane',
+      'hyderabad',
+      'nagpur',
+      'lucknow',
+      'ahmedabad',
+      'chennai'
+    ];
+
+  function generatePopularCityLinks () {
+    popularCityLinks = POPULAR_CITIES.map(city => {
+      return {
+        city,
+        href: generateLinkForCity(city),
+      };
+    });
+  }
 
   function getAlsoSearchForString() {
     const keywords = Object.keys(alsoSearchFor).reduce((keywordsSoFar, item) => {
@@ -105,6 +132,16 @@
         href: generateLinkForCity(city)
       };
     });
+
+    tick()
+      .then(() => {
+        const firstItem = document.querySelector('#city-links li');
+
+        if (firstItem) {
+          firstItem.scrollIntoView();
+          firstItem.focus();
+        }
+      });
   }
 </script>
 
@@ -145,69 +182,128 @@
     max-width: 300px;
     height: auto;
   }
+
+  .split {
+    display: flex;
+    align-items: top;
+    flex-wrap: wrap;
+  }
+
+  #tips {
+    width: 100%;
+  }
+
+  #city-links {
+    border: 1px dashed blue;
+  }
+
+  @media screen and (min-width: 769px) {
+    #main-content {
+      margin-right: 20px;
+      max-width: calc(100% - 20ch - 20px - 1em);
+    }
+
+    #quick-links {
+      max-width: 20ch;
+      flex-grow: 0;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .split > * {
+      width: 100%;
+    }
+
+    #quick-links {
+      order: 1;
+    }
+
+    #tips {
+      order: 2;
+    }
+
+    #main-content {
+      order: 3;
+    }
+  }
 </style>
 
 <main>
 	<h1>Twitter Search for COVID</h1>
 	
-  <form on:submit|preventDefault={generate}>
-    <div>
-      <label for="cities">List of cities (comma-separated, e.g. mumbai, bengaluru)</label>
-      <br />
-      <input type="text" bind:value={inputs.cities} id="cities" />
-    </div>
-
-    <div>
-      Also search for:
-      
-      {#each Object.keys(alsoSearchFor) as item (item)}
+  <div class="split">
+    <div id="main-content">
+      <h2>Search by city/cities</h2>
+      <form on:submit|preventDefault={generate}>
         <div>
-          <input type="checkbox" bind:checked={alsoSearchFor[item].checked} id={`alsoSearchFor-${item}`} />
-          <label for={`alsoSearchFor-${item}`}>{capitalCase(item)}</label>
+          <label for="cities">List of cities (comma-separated, e.g. mumbai, bengaluru)</label>
+          <br />
+          <input type="text" bind:value={inputs.cities} id="cities" />
         </div>
-      {/each}
+    
+        <div>
+          Also search for:
+          
+          {#each Object.keys(alsoSearchFor) as item (item)}
+            <div>
+              <input type="checkbox" bind:checked={alsoSearchFor[item].checked} id={`alsoSearchFor-${item}`} />
+              <label for={`alsoSearchFor-${item}`}>{capitalCase(item)}</label>
+            </div>
+          {/each}
+    
+          <div>
+            <label for="alsoSearchFor-other">Other:</label>
+            <input type="text" bind:value={inputs.other} id="alsoSearchFor-other" />
+          </div>
+    
+        </div>
+    
+        <div>
+          <input type="checkbox" bind:checked={checkboxes.nearMe} id="nearMe" />
+          <label for="nearMe">Near my location?</label>
+        </div>
+    
+        <div>
+          <input type="checkbox" bind:checked={checkboxes.verifiedOnly} id="verifiedOnly" />
+          <label for="verifiedOnly">Show verified tweets only</label>
+        </div>
+    
+        <div>
+          <button>Generate Links</button>
+        </div>
+      </form>
 
-      <div>
-        <label for="alsoSearchFor-other">Other:</label>
-        <input type="text" bind:value={inputs.other} id="alsoSearchFor-other" />
-      </div>
+      {#if links.length > 0}
+        <h2>Links</h2>
 
+        <ol id="city-links">
+          {#each links as link (link.href)}
+            <li><a href={link.href} target="_blank" rel="noopener noreferrer">{capitalCase(link.city)}</a></li>
+          {/each}
+        </ol>
+      {/if}
     </div>
+    <div id="quick-links">
+      <h2>Quick Links</h2>
 
-    <div>
-      <input type="checkbox" bind:checked={checkboxes.nearMe} id="nearMe" />
-      <label for="nearMe">Near my location?</label>
+      <ol>
+        {#each popularCityLinks as link (link.href)}
+          <li><a href={link.href} target="_blank" rel="noopener noreferrer">{capitalCase(link.city)}</a></li>
+        {/each}
+      </ol>
     </div>
-
-    <div>
-      <input type="checkbox" bind:checked={checkboxes.verifiedOnly} id="verifiedOnly" />
-      <label for="verifiedOnly">Show verified tweets only</label>
+    <div id="tips">
+      <h2>Tips</h2>
+      <ol>
+        <li>Check for replies under the tweets</li>
+        <li>
+          Make sure search results are sorted by "Latest"
+          <br />
+          <img src="/sort-click-here.jpg" alt="" />
+        </li>
+      </ol>
     </div>
-
-    <div>
-      <button>Generate Links</button>
-    </div>
-  </form>
-
-  {#if links.length > 0}
-    <h2>Links</h2>
-
-    <ol>
-      {#each links as link (link.href)}
-        <li><a href={link.href} target="_blank" rel="noopener noreferrer">{capitalCase(link.city)}</a></li>
-      {/each}
-    </ol>
-  {/if}
-
-  <h2>Tips</h2>
-  <ol>
-    <li>Check for replies under the tweets</li>
-    <li>
-      Make sure search results are sorted by "Latest"
-      <br />
-      <img src="/sort-click-here.jpg" alt="" />
-    </li>
-  </ol>
+  </div>
 
   <div class="feedback">
     <a class="feedback" href="https://twitter.com/umanghome/status/1383759182495588355" target="_blank" rel="noopener noreferrer">Got feedback?</a>
