@@ -346,5 +346,7 @@
 
   <div class="feedback">
     <a href="https://twitter.com/umanghome/status/1383759182495588355" target="_blank" rel="noopener noreferrer">Got feedback?</a>
+    <br />
+    <a href="https://github.com/umanghome/twitter-search-covid19" target="_blank" rel="noopener noreferrer">Source code</a>
   </div>
 </main>
