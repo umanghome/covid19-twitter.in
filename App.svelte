@@ -1,5 +1,5 @@
 <script>
-  import { tick } from 'svelte';
+  import { tick } from "svelte";
 
   const inputs = {
     cities: "",
@@ -7,8 +7,8 @@
   };
   const checkboxes = {
     nearMe: false,
-    verifiedOnly: true,
-  }
+    verifiedOnly: true
+  };
   const alsoSearchFor = {
     beds: {
       keywords: ["bed", "beds"],
@@ -20,19 +20,27 @@
     },
     ventilator: {
       keywords: ["ventilator", "ventilators"],
-      checked: true,
+      checked: true
     },
-    hospitals: {
-      keywords: ["hospitals", "hospital"],
-      checked: true,
+    fabiflu: {
+      keywords: ["fabiflu"],
+      checked: true
     },
     remdesivir: {
       keywords: ["remdesivir"],
       checked: false
     },
+    favipiravir: {
+      keywords: ["favipiravir"],
+      checked: false
+    },
+    tocilizumab: {
+      keywords: ["tocilizumab"],
+      checked: false
+    },
     plasma: {
       keywords: ["plasma"],
-      checked: false,
+      checked: false
     },
     tiffin: {
       keywords: ["tiffin"],
@@ -42,26 +50,27 @@
   let links = [];
   let popularCityLinks = [];
 
-  $: (alsoSearchFor, inputs, checkboxes, generatePopularCityLinks());
+  $: alsoSearchFor, inputs, checkboxes, generatePopularCityLinks();
 
   const POPULAR_CITIES = [
-      'delhi',
-      'pune',
-      'mumbai',
-      'bangalore',
-      'thane',
-      'hyderabad',
-      'nagpur',
-      'lucknow',
-      'ahmedabad',
-      'chennai'
-    ];
+    "delhi",
+    "pune",
+    "mumbai",
+    "bangalore",
+    "thane",
+    "hyderabad",
+    "nagpur",
+    "lucknow",
+    "ahmedabad",
+    "chennai",
+    "kolkata"
+  ];
 
-  function generatePopularCityLinks () {
+  function generatePopularCityLinks() {
     popularCityLinks = POPULAR_CITIES.map(city => {
       return {
         city,
-        href: generateLinkForCity(city),
+        href: generateLinkForCity(city)
       };
     });
   }
@@ -98,7 +107,11 @@
     const base = `https://twitter.com/search`;
     const params = new URLSearchParams();
 
-    const query = [checkboxes.verifiedOnly && "verified", city.trim(), getAlsoSearchForString()]
+    const query = [
+      checkboxes.verifiedOnly && "verified",
+      city.trim(),
+      getAlsoSearchForString()
+    ]
       .filter(Boolean)
       .join(" ");
 
@@ -133,15 +146,14 @@
       };
     });
 
-    tick()
-      .then(() => {
-        const firstItem = document.querySelector('#city-links li');
+    tick().then(() => {
+      const firstItem = document.querySelector("#city-links li");
 
-        if (firstItem) {
-          firstItem.scrollIntoView();
-          firstItem.focus();
-        }
-      });
+      if (firstItem) {
+        firstItem.scrollIntoView();
+        firstItem.focus();
+      }
+    });
   }
 </script>
 
@@ -175,7 +187,7 @@
   }
 
   .feedback {
-    margin-top: 120px;
+    margin-top: 60px;
   }
 
   li img {
@@ -197,6 +209,11 @@
     border: 1px dashed blue;
   }
 
+  .highlight-red {
+    border: 1px solid red;
+    padding: 4px;
+  }
+
   @media screen and (min-width: 769px) {
     #main-content {
       margin-right: 20px;
@@ -206,6 +223,10 @@
     #quick-links {
       max-width: 20ch;
       flex-grow: 0;
+    }
+
+    .only-mobile {
+      display: none;
     }
   }
 
@@ -225,6 +246,22 @@
     #main-content {
       order: 3;
     }
+
+    .list-split-on-mobile {
+      display: flex;
+      flex-wrap: wrap;
+      padding-left: 1em;
+    }
+
+    .list-split-on-mobile > * {
+      width: 50%;
+    }
+  }
+
+  @media screen and (max-width: 320px) {
+    .list-split-on-mobile > * {
+      width: 100%;
+    }
   }
 </style>
 
@@ -236,7 +273,7 @@
       <h2>Search by city/cities</h2>
       <form on:submit|preventDefault={generate}>
         <div>
-          <label for="cities">List of cities (comma-separated, e.g. mumbai, bengaluru)</label>
+          <label for="cities">List of cities (comma-separated, e.g. indore, jamnagar)</label>
           <br />
           <input type="text" bind:value={inputs.cities} id="cities" />
         </div>
@@ -286,11 +323,13 @@
     <div id="quick-links">
       <h2>Quick Links</h2>
 
-      <ol>
+      <ol class="list-split-on-mobile">
         {#each popularCityLinks as link (link.href)}
           <li><a href={link.href} target="_blank" rel="noopener noreferrer">{capitalCase(link.city)}</a></li>
         {/each}
       </ol>
+
+      <h3 class="only-mobile highlight-red">Scroll down to search for more cities and keywords</h3>
     </div>
     <div id="tips">
       <h2>Tips</h2>
@@ -306,6 +345,6 @@
   </div>
 
   <div class="feedback">
-    <a class="feedback" href="https://twitter.com/umanghome/status/1383759182495588355" target="_blank" rel="noopener noreferrer">Got feedback?</a>
+    <a href="https://twitter.com/umanghome/status/1383759182495588355" target="_blank" rel="noopener noreferrer">Got feedback?</a>
   </div>
 </main>
