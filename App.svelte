@@ -1,5 +1,6 @@
 <script>
   import { tick } from "svelte";
+  import { POPULAR_CITIES, capitalCase } from './utils';
 
   const inputs = {
     cities: "",
@@ -51,20 +52,6 @@
   let popularCityLinks = [];
 
   $: alsoSearchFor, inputs, checkboxes, generatePopularCityLinks();
-
-  const POPULAR_CITIES = [
-    "delhi",
-    "pune",
-    "mumbai",
-    "bangalore",
-    "thane",
-    "hyderabad",
-    "nagpur",
-    "lucknow",
-    "ahmedabad",
-    "chennai",
-    "kolkata"
-  ];
 
   function generatePopularCityLinks() {
     popularCityLinks = POPULAR_CITIES.map(city => {
