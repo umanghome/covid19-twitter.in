@@ -8,7 +8,8 @@
   };
   const checkboxes = {
     nearMe: false,
-    verifiedOnly: true
+    verifiedOnly: true,
+    excludeUnverified: true,
   };
   const alsoSearchFor = {
     beds: {
@@ -82,14 +83,6 @@
     }
   }
 
-  function capitalCase(string) {
-    if (!string) {
-      return string;
-    }
-
-    return string[0].toUpperCase() + string.slice(1);
-  }
-
   function generateLinkForCity(city) {
     const base = `https://twitter.com/search`;
     const params = new URLSearchParams();
@@ -97,7 +90,9 @@
     const query = [
       checkboxes.verifiedOnly && "verified",
       city.trim(),
-      getAlsoSearchForString()
+      getAlsoSearchForString(),
+      checkboxes.excludeUnverified && '-"not verified"',
+      checkboxes.excludeUnverified && '-"unverified"',
     ]
       .filter(Boolean)
       .join(" ");
@@ -294,6 +289,11 @@
         <div>
           <input type="checkbox" bind:checked={checkboxes.verifiedOnly} id="verifiedOnly" />
           <label for="verifiedOnly">Show verified tweets only</label>
+        </div>
+
+        <div>
+          <input type="checkbox" bind:checked={checkboxes.excludeUnverified} id="excludeUnverified" />
+          <label for="excludeUnverified">Exclude unverified tweets</label>
         </div>
     
         <div>
