@@ -261,6 +261,10 @@
       order: 4;
     }
 
+    #donate {
+      order: 5;
+    }
+
     .list-split-on-mobile {
       display: flex;
       flex-wrap: wrap;
@@ -392,6 +396,13 @@
       <h2>Other Resources</h2>
       <ul>
         <li><a href="https://covidfacts.in/" target="_blank" rel="noopener noreferrer">covidfacts.in</li>
+      </ul>
+    </div>
+
+    <div id="donate">
+      <h2>Places you can Donate to</h2>
+      <ul>
+        <li><a href="https://hemkuntfoundation.com/donate-now/" target="_blank" rel="noopener noreferrer">Hemkunt Foundation</a> has been helping out with Oxygen Cylinders. 80G donation receipts available.</li>
       </ul>
     </div>
   </div>
