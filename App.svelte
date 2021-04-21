@@ -4,7 +4,8 @@
 
   const inputs = {
     cities: "",
-    other: ""
+    otherAlsoSearchFor: "",
+    otherExcludedKeywords: '',
   };
   const checkboxes = {
     nearMe: false,
@@ -49,6 +50,16 @@
       checked: false
     }
   };
+  const excludeKeywords = {
+    needed: {
+      keywords: ['needed'],
+      checked: true,
+    },
+    required: {
+      keywords: ['required'],
+      checked: true,
+    }
+  };
   let links = [];
   let popularCityLinks = [];
 
@@ -72,8 +83,8 @@
       }
     }, []);
 
-    if (inputs.other) {
-      keywords.push(inputs.other);
+    if (inputs.otherAlsoSearchFor) {
+      keywords.push(inputs.otherAlsoSearchFor);
     }
 
     if (keywords.length > 0) {
@@ -81,6 +92,22 @@
     } else {
       return "";
     }
+  }
+
+  function getExcludedKeywordsString() {
+    const keywords = Object.keys(excludeKeywords).reduce((keywordsSoFar, item) => {
+      if (excludeKeywords[item].checked) {
+        return keywordsSoFar.concat(excludeKeywords[item].keywords);
+      } else {
+        return keywordsSoFar;
+      }
+    }, []);
+
+    if (inputs.otherExcludedKeywords) {
+      keywords.push(inputs.otherExcludedKeywords);
+    }
+
+    return keywords.map(keyword => `-"${keyword}"`).join(' ');
   }
 
   function generateLinkForCity(city) {
@@ -93,6 +120,7 @@
       getAlsoSearchForString(),
       checkboxes.excludeUnverified && '-"not verified"',
       checkboxes.excludeUnverified && '-"unverified"',
+      getExcludedKeywordsString(),
     ]
       .filter(Boolean)
       .join(" ");
@@ -276,9 +304,25 @@
     
           <div>
             <label for="alsoSearchFor-other">Other:</label>
-            <input type="text" bind:value={inputs.other} id="alsoSearchFor-other" />
+            <input type="text" bind:value={inputs.otherAlsoSearchFor} id="alsoSearchFor-other" />
           </div>
     
+        </div>
+
+        <div>
+          Tweets should NOT have these words:
+
+          {#each Object.keys(excludeKeywords) as item (item)}
+            <div>
+              <input type="checkbox" bind:checked={excludeKeywords[item].checked} id={`excludeKeywords-${item}`} />
+              <label for={`excludeKeywords-${item}`}>"{item}"</label>
+            </div>
+          {/each}
+    
+          <div>
+            <label for="excludeKeywords-other">Other:</label>
+            <input type="text" bind:value={inputs.otherExcludedKeywords} id="excludeKeywords-other" />
+          </div>
         </div>
     
         <div>
