@@ -310,7 +310,7 @@
         </div>
 
         <div>
-          Tweets should NOT have these words:
+          Tweets should <strong>NOT</strong> have these words:
 
           {#each Object.keys(excludeKeywords) as item (item)}
             <div>
