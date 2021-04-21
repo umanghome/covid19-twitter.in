@@ -332,12 +332,22 @@
     
         <div>
           <input type="checkbox" bind:checked={checkboxes.verifiedOnly} id="verifiedOnly" />
-          <label for="verifiedOnly">Show verified tweets only</label>
+          <label for="verifiedOnly">
+            Show verified tweets only
+            <br />
+            <strong>(Uncheck this for smaller cities)</strong>
+            <br />
+            (Tweet should contain "verified")
+          </label>
         </div>
 
         <div>
           <input type="checkbox" bind:checked={checkboxes.excludeUnverified} id="excludeUnverified" />
-          <label for="excludeUnverified">Exclude unverified tweets</label>
+          <label for="excludeUnverified">
+            Exclude unverified tweets
+            <br />
+            (Tweet should not contain "not verified" and "unverified")
+          </label>
         </div>
     
         <div>
