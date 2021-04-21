@@ -17,6 +17,10 @@
       keywords: ["bed", "beds"],
       checked: true
     },
+    ICU: {
+      keywords: ["icu"],
+      checked: true,
+    },
     oxygen: {
       keywords: ["oxygen"],
       checked: true
