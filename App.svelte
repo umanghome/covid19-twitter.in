@@ -162,6 +162,8 @@
       if (firstItem) {
         firstItem.scrollIntoView();
         firstItem.focus();
+
+        alert('Please check the Links section');
       }
     });
   }
@@ -401,7 +403,7 @@
     </div>
 
     <div id="donate">
-      <h2>Places you can Donate to</h2>
+      <h2>[VOLUNTARY] Places you can Donate to</h2>
       <ul>
         <li><a href="https://hemkuntfoundation.com/donate-now/" target="_blank" rel="noopener noreferrer">Hemkunt Foundation</a> has been helping out with Oxygen Cylinders. 80G donation receipts available.</li>
       </ul>
