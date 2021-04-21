@@ -339,7 +339,7 @@
     
         <div>
           <input type="checkbox" bind:checked={checkboxes.nearMe} id="nearMe" />
-          <label for="nearMe">Near my location?</label>
+          <label for="nearMe">Show Tweets near me</label>
         </div>
     
         <div>
@@ -347,7 +347,7 @@
           <label for="verifiedOnly">
             Show verified tweets only
             <br />
-            <strong>(Uncheck this for smaller cities)</strong>
+            <strong>Uncheck this for smaller cities</strong>
             <br />
             (Tweet should contain "verified")
           </label>
