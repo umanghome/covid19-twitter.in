@@ -10,6 +10,7 @@ export const POPULAR_CITIES = [
   'ahmedabad',
   'chennai',
   'kolkata',
+  'goa',
 ];
 
 export function capitalCase(string) {
