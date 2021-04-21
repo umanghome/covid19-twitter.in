@@ -284,6 +284,18 @@
 	
   <div class="split">
     <div id="main-content">
+      <div id="tips">
+        <h2>Tips</h2>
+        <ol>
+          <li>Check for replies under the tweets</li>
+          <li>
+            Make sure search results are sorted by "Latest"
+            <br />
+            <img src="/sort-click-here.jpg" alt="" />
+          </li>
+        </ol>
+      </div>
+
       <h2>Search by city/cities</h2>
       <form on:submit|preventDefault={generate}>
         <div>
@@ -375,17 +387,6 @@
       </ol>
 
       <h3 class="only-mobile highlight-red">Scroll down to search for more cities and keywords</h3>
-    </div>
-    <div id="tips">
-      <h2>Tips</h2>
-      <ol>
-        <li>Check for replies under the tweets</li>
-        <li>
-          Make sure search results are sorted by "Latest"
-          <br />
-          <img src="/sort-click-here.jpg" alt="" />
-        </li>
-      </ol>
     </div>
     <div id="other-resources">
       <h2>Other Resources</h2>
