@@ -397,7 +397,7 @@
 
         <div>
           <label for="dayCount"><strong>Show only tweets from the last</strong></label>
-          <input type="number" bind:value={inputs.days} id="dayCount"/>
+          <input type="number" bind:value={inputs.days} id="dayCount" min=1/>
           days
         </div>
 
