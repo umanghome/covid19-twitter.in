@@ -1,6 +1,6 @@
 <script>
   import { tick } from "svelte";
-  import { POPULAR_CITIES, capitalCase } from './utils';
+  import { POPULAR_CITIES, STORAGE_KEY, LocalStorage, capitalCase } from './utils';
 
   const inputs = {
     cities: "",
@@ -64,7 +64,8 @@
       checked: true,
     }
   };
-  let links = [];
+
+  let links = LocalStorage.getItem(STORAGE_KEY.generated_links, []);
   let popularCityLinks = [];
 
   $: alsoSearchFor, inputs, checkboxes, generatePopularCityLinks();
@@ -169,7 +170,15 @@
 
         alert('Please check the Links section');
       }
+
+      LocalStorage.setItem(STORAGE_KEY.generated_links, links);
     });
+  }
+
+  function clearSavedLinks() {
+    links = [];
+
+    LocalStorage.removeItem(STORAGE_KEY.generated_links);
   }
 </script>
 
@@ -291,7 +300,7 @@
 
 <main>
 	<h1>Twitter Search for COVID</h1>
-	
+
   <div class="split">
     <div id="main-content">
       <div id="tips">
@@ -314,22 +323,22 @@
           <br />
           <input type="text" bind:value={inputs.cities} id="cities" />
         </div>
-    
+
         <div>
           Also search for:
-          
+
           {#each Object.keys(alsoSearchFor) as item (item)}
             <div>
               <input type="checkbox" bind:checked={alsoSearchFor[item].checked} id={`alsoSearchFor-${item}`} />
               <label for={`alsoSearchFor-${item}`}>{capitalCase(item)}</label>
             </div>
           {/each}
-    
+
           <div>
             <label for="alsoSearchFor-other">Other:</label>
             <input type="text" bind:value={inputs.otherAlsoSearchFor} id="alsoSearchFor-other" />
           </div>
-    
+
         </div>
 
         <div>
@@ -341,18 +350,18 @@
               <label for={`excludeKeywords-${item}`}>"{item}"</label>
             </div>
           {/each}
-    
+
           <div>
             <label for="excludeKeywords-other">Other:</label>
             <input type="text" bind:value={inputs.otherExcludedKeywords} id="excludeKeywords-other" />
           </div>
         </div>
-    
+
         <div>
           <input type="checkbox" bind:checked={checkboxes.nearMe} id="nearMe" />
           <label for="nearMe">Show Tweets near me</label>
         </div>
-    
+
         <div>
           <input type="checkbox" bind:checked={checkboxes.verifiedOnly} id="verifiedOnly" />
           <label for="verifiedOnly">
@@ -372,20 +381,22 @@
             (Tweet should not contain "not verified" and "unverified")
           </label>
         </div>
-    
+
         <div>
           <button>Generate Links</button>
         </div>
       </form>
 
       {#if links.length > 0}
-        <h2>Links</h2>
+        <h2>Your Generated Links</h2>
 
         <ol id="city-links">
           {#each links as link (link.href)}
             <li><a href={link.href} target="_blank" rel="noopener noreferrer">{capitalCase(link.city)}</a></li>
           {/each}
         </ol>
+
+        <button on:click={clearSavedLinks}>Clear saved links</button>
       {/if}
     </div>
     <div id="quick-links">
@@ -402,7 +413,7 @@
     <div id="other-resources">
       <h2>Other Resources</h2>
       <ul>
-        <li><a href="https://covidfacts.in/" target="_blank" rel="noopener noreferrer">covidfacts.in</li>
+        <li><a href="https://covidfacts.in/" target="_blank" rel="noopener noreferrer">covidfacts.in</a></li>
       </ul>
     </div>
 
