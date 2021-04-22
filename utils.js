@@ -20,3 +20,7 @@ export function capitalCase(string) {
 
   return string[0].toUpperCase() + string.slice(1);
 }
+
+export const STORAGE_KEY = {
+  generated_links: 'generated_links',
+};
