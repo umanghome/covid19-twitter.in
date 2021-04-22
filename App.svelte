@@ -1,6 +1,6 @@
 <script>
   import { tick } from "svelte";
-  import { POPULAR_CITIES, STORAGE_KEY, capitalCase } from './utils';
+  import { POPULAR_CITIES, STORAGE_KEY, LocalStorage, capitalCase } from './utils';
 
   const inputs = {
     cities: "",
@@ -65,7 +65,7 @@
     }
   };
 
-  let links = JSON.parse(localStorage.getItem(STORAGE_KEY.generated_links) || '[]');
+  let links = LocalStorage.getItem(STORAGE_KEY.generated_links, []);
   let popularCityLinks = [];
 
   $: alsoSearchFor, inputs, checkboxes, generatePopularCityLinks();
@@ -171,14 +171,14 @@
         alert('Please check the Links section');
       }
 
-      localStorage.setItem(STORAGE_KEY.generated_links, JSON.stringify(links));
+      LocalStorage.setItem(STORAGE_KEY.generated_links, links);
     });
   }
 
   function clearSavedLinks() {
     links = [];
 
-    localStorage.removeItem(STORAGE_KEY.generated_links);
+    LocalStorage.removeItem(STORAGE_KEY.generated_links);
   }
 </script>
 
