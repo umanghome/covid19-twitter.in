@@ -6,6 +6,7 @@
     cities: "",
     otherAlsoSearchFor: "",
     otherExcludedKeywords: '',
+    days: 14,
   };
   const checkboxes = {
     nearMe: false,
@@ -115,6 +116,17 @@
     return keywords.map(keyword => `-"${keyword}"`).join(' ');
   }
 
+  /**
+  * @param {number} dayCount the max. number of days to go back
+  * @returns {string} a string in the format "since:YYYY-MM-DD"
+  */
+  function getSinceDateString(dayCount) {
+    let now = new Date();
+    let delta = dayCount * 864e5; // 1 day = 86400 seconds = 864e5 millis
+    let then = new Date(now - delta);
+    return `since:${then.toISOString().split("T")[0]}`;
+  }
+
   function generateLinkForCity(city) {
     const base = `https://twitter.com/search`;
     const params = new URLSearchParams();
@@ -126,6 +138,7 @@
       checkboxes.excludeUnverified && '-"not verified"',
       checkboxes.excludeUnverified && '-"unverified"',
       getExcludedKeywordsString(),
+      getSinceDateString(inputs.days)
     ]
       .filter(Boolean)
       .join(" ");
@@ -380,6 +393,12 @@
             <br />
             (Tweet should not contain "not verified" and "unverified")
           </label>
+        </div>
+
+        <div>
+          <label for="dayCount"><strong>Show only tweets from the last</strong></label>
+          <input type="number" bind:value={inputs.days} id="dayCount"/>
+          days
         </div>
 
         <div>
