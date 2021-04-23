@@ -81,8 +81,8 @@
   let previouslySearched = LocalStorage.getItem(STORAGE_KEY.generated_links, []);
   let popularCityLinks = [];
 
-  $: alsoSearchFor, inputs, checkboxes, generateLinks();
-  $: alsoSearchFor, inputs, checkboxes, generatePopularCityLinks();
+  $: alsoSearchFor, inputs, checkboxes, excludeKeywords, generateLinks();
+  $: alsoSearchFor, inputs, checkboxes, excludeKeywords, generatePopularCityLinks();
 
   function getAlsoSearchForString() {
     const keywords = Object.keys(alsoSearchFor).reduce((keywordsSoFar, item) => {
