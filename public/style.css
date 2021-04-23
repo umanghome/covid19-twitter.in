@@ -3,6 +3,29 @@
  * Copyright 2021 The BackdropFilter
  * Licensed under MIT License.
  */
+
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+body {
+    font-family: Roboto, sans-serif;
+    color: #616161;
+    text-align: left;
+    margin: 1rem 0rem;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+body * {
+    box-sizing: border-box;
+}
+
 h1,
 h2,
 h3,
