@@ -74,6 +74,10 @@
     required: {
       keywords: ['required'],
       checked: true,
+    },
+    requirement: {
+      keywords: ['requirement'],
+      checked: true
     }
   };
 
