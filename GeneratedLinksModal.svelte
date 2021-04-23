@@ -5,5 +5,5 @@
   export let links;
 </script>
 
-<Tips />
+<Tips large={false} />
 <GeneratedLinks {links} />
