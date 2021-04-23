@@ -29,9 +29,13 @@
       keywords: ["ventilator", "ventilators"],
       checked: true
     },
+    tests: {
+      keywords: ["test", "tests", "testing"],
+      checked: false,
+    },
     fabiflu: {
       keywords: ["fabiflu"],
-      checked: true
+      checked: false
     },
     remdesivir: {
       keywords: ["remdesivir"],
