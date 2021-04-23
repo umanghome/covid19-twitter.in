@@ -197,15 +197,6 @@
     margin-bottom: 12px;
   }
 
-  #cities {
-    border: 2px solid #444444;
-    display: block;
-    width: 100%;
-    font-size: 1.2rem;
-    padding: 4px 8px;
-    margin-bottom: 12px;
-  }
-
   hr {
     margin: 12px auto;
   }
@@ -239,14 +230,14 @@
   }
 
   .other-input {
-    margin-top: 4px;
+    margin: 0.5rem;
   }
 
   .checkbox-fields > * {
     display: flex;
     width: 100%;
     align-items: center;
-    margin: 4px 0;
+    padding:0.5rem;
   }
 
   .checkbox-fields label {
@@ -258,7 +249,7 @@
   }
 
   #generate-button-container {
-    margin-top: 24px;
+    padding: 1rem;
   }
 </style>
 

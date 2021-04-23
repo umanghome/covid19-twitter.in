@@ -1,22 +1,111 @@
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
   background-color: #fafafa;
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
 }
 
 body {
+  font-family: Roboto, sans-serif;
   width: 100%;
-  margin: 0;
-  margin-bottom: 24px;
+  font-size: 1rem;
+  min-width: 100%;
+  max-width: 100%;
+  color: #212529;
 }
 
-*:not(a) {
-  color: #444444;
+a {
+  font-size: 1rem;
+  color: #1565c0 !important;
+  text-decoration: none !important;
 }
- 
+
+img {
+  width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  color: #616161;
+  text-align: left;
+  margin: 1rem 0rem;
+  font-weight: 400;
+  line-height: normal;
+  font-family: Roboto, sans-serif;
+}
+
+
+a:hover {
+  text-decoration: underline !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0rem;
+  color: #444444;
+  padding: 0.25rem 0;
+  line-height: 1.3125em;
+  letter-spacing: 0.005rem;
+  font-family: Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+p {
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1.1;
+}
+
+
+button {
+  border: 0;
+  margin: 0.5rem;
+  outline: none;
+  cursor: pointer;
+  font-weight: 500;
+  overflow: hidden;
+  letter-spacing: 0;
+  position: relative;
+  display: inline-flex;
+  text-decoration: none;
+  border-radius: 0.2rem;
+  padding: 0.55rem 1.5rem;
+  color: #ffffff !important;
+  font-size: 0.9rem !important;
+  text-align: center !important;
+  background: #1565c0 !important;
+  box-shadow: 0 1px 0px 1px #00000025;
+}
+
+input {
+  height: 2rem;
+  margin: 0.5rem;
+  color: #222222;
+  padding: 0.25rem;
+  padding: 0.25rem;
+  border-radius: 0rem;
+  outline: none !important;
+  margin: 0.25rem !important;
+  font-size: 0.9rem !important;
+  border: 1px solid #777777;
+}
+
 main {
   font-family: sans-serif;
   margin: 0 auto;
@@ -39,23 +128,5 @@ li {
 
 li img {
   width: 100%;
-  max-width: 300px;
   height: auto;
-}
-
-h1 {
-  font-size: 1.6em;
-}
-
-h2 {
-  font-size: 1.4em;
-  margin: 0.5em 0;
-}
-
-h3 {
-  font-size: 1.2em;
-}
-
-ol, ul {
-  padding-left: 3ch;
 }
