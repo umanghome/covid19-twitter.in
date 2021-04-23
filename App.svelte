@@ -49,8 +49,8 @@
       keywords: ["plasma"],
       checked: false
     },
-    tiffin: {
-      keywords: ["tiffin"],
+    food: {
+      keywords: ["tiffin", "food"],
       checked: false
     }
   };
