@@ -66,13 +66,17 @@
       checked: false
     },
     needed: {
-      keywords: ["needed", "need"],
+      keywords: ["needed", "need", "needs"],
       checked: true,
     },
     required: {
-      keywords: ["required", "require"],
+      keywords: ["required", "require", "requires"],
       checked: true,
     },
+    find: {
+      keywords: ["find", "finding"],
+      checked: true,
+    }
   };
   const excludeKeywords = {
     needed: {
