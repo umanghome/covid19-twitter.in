@@ -32,7 +32,9 @@ export default {
     // some cases you'll need additional configuration —
     // consult the documentation for details:
     // https://github.com/rollup/rollup-plugin-commonjs
-    resolve(),
+    resolve({
+      dedupe: ['svelte', 'svelte/transition', 'svelte/internal']
+    }),
     commonjs(),
 
     // If we're building for production (npm run build
