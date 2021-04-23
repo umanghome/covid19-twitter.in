@@ -207,7 +207,7 @@
   }
 
   hr {
-    margin: 24px auto;
+    margin: 12px auto;
   }
 
   #options .spaced > * {
@@ -216,10 +216,6 @@
 
   #clear {
     font-size: 0.8rem;
-  }
-
-  .split-two {
-    display: grid;
   }
 
   .split-two-one {
@@ -240,19 +236,6 @@
     .split-two-one {
       grid-template-columns: 1fr;
     }
-  }
-
-  .split-two > * {
-    flex-grow: 1;
-  }
-
-  .split-two > *:nth-child(odd) {
-    margin-right: 12px;
-  }
-
-  .split-three-two > * {
-    width: 30%;
-    flex-grow: 1;
   }
 
   .other-input {
@@ -278,21 +261,16 @@
 
   <hr />
 
+  <nav class="split-two-one">
+    <a href="#frequent-searches">Frequently Searched Cities</a>
+    {#if previouslySearched.length > 0}
+      <a href="#previous-searches">Previous Searches</a>
+    {/if}
+  </nav>
+
+  <hr />
+
   <Tips />
-
-  {#if previouslySearched.length > 0}
-    <div>
-      <h2>Previous Searches</h2>
-
-      <ol class="split-three-two">
-        {#each previouslySearched as link (link.href)}
-          <li><a href={link.href} target="_blank" rel="noopener noreferrer">{capitalCase(link.city)}</a></li>
-        {/each}
-      </ol>
-
-      <button id="clear" on:click|preventDefault={clearSavedLinks}>Clear Previous Searches</button>
-    </div>
-  {/if}
 
   <hr />
 
@@ -375,12 +353,12 @@
       </div>
     </form>
 
-    <Modal show={$modal} />
+    <Modal show={$modal} transitionBgProps={{ duration: 0 }} transitionWindowProps={{ duration: 0 }} />
   </div>
 
   <hr />
 
-  <div>
+  <div id="frequent-searches">
     <h2>Frequently Searched Cities</h2>
 
     <ol class="split-three-two">
@@ -391,6 +369,22 @@
   </div>
 
   <hr />
+
+  {#if previouslySearched.length > 0}
+    <div id="previous-searches">
+      <h2>Previous Searches</h2>
+
+      <ol class="split-three-two">
+        {#each previouslySearched as link (link.href)}
+          <li><a href={link.href} target="_blank" rel="noopener noreferrer">{capitalCase(link.city)}</a></li>
+        {/each}
+      </ol>
+
+      <button id="clear" on:click|preventDefault={clearSavedLinks}>Clear Previous Searches</button>
+    </div>
+
+    <hr />
+  {/if}
 
   <OtherResources />
 
