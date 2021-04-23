@@ -69,10 +69,13 @@
     }
   };
 
-  let links = LocalStorage.getItem(STORAGE_KEY.generated_links, []);
+  let links = [];
+  let previouslySearched = LocalStorage.getItem(STORAGE_KEY.generated_links, []).map(({ city }) => city);
+  let previouslySearchedLinks = [];
   let popularCityLinks = [];
 
   $: alsoSearchFor, inputs, checkboxes, generatePopularCityLinks();
+  $: previouslySearched, generatePreviouslySearchedLinks();
 
   function generatePopularCityLinks() {
     popularCityLinks = POPULAR_CITIES.map(city => {
@@ -81,6 +84,17 @@
         href: generateLinkForCity(city)
       };
     });
+  }
+
+  function generatePreviouslySearchedLinks() {
+    if (previouslySearched) {
+      previouslySearchedLinks = previouslySearched.map(city => {
+        return {
+          city,
+          href: generateLinkForCity(city)
+        }
+      });
+    }
   }
 
   function getAlsoSearchForString() {
@@ -180,7 +194,7 @@
   }
 
   function clearSavedLinks() {
-    links = [];
+    previouslySearched = [];
 
     LocalStorage.removeItem(STORAGE_KEY.generated_links);
   }
@@ -348,13 +362,21 @@
             <li><a href={link.href} target="_blank" rel="noopener noreferrer">{capitalCase(link.city)}</a></li>
           {/each}
         </ol>
-
-        <button on:click={clearSavedLinks}>Clear saved links</button>
       {/if}
     </div>
 
     <div id="quick-links">
-      <h2>Frequently Searched Cities</h2>
+      {#if previouslySearchedLinks.length > 0}
+        <h2>Previously Searched</h2>
+
+        <ol>
+          {#each previouslySearchedLinks as link (link.href)}
+            <li><a href={link.href} target="_blank" rel="noopener noreferrer">{capitalCase(link.city)}</a></li>
+          {/each}
+        </ol>  
+      {/if}
+
+      <h2>Frequently Searched</h2>
   
       <ol class="list-split-on-mobile">
         {#each popularCityLinks as link (link.href)}
