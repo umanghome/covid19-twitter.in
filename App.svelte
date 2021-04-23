@@ -243,6 +243,10 @@
     padding: 4px;
   }
 
+  #cities {
+    border: 2px solid black;
+  }
+
   @media screen and (min-width: 769px) {
     #main-content {
       margin-right: 20px;
@@ -323,7 +327,7 @@
       <h2>Search by city/cities</h2>
       <form on:submit|preventDefault={generate}>
         <div>
-          <label for="cities">List of cities (comma-separated, e.g. indore, jamnagar)</label>
+          <label for="cities">Name of city</label>
           <br />
           <input type="text" bind:value={inputs.cities} id="cities" />
         </div>
@@ -404,7 +408,7 @@
       {/if}
     </div>
     <div id="quick-links">
-      <h2>Quick Links</h2>
+      <h2>Frequently Searched Cities</h2>
 
       <ol class="list-split-on-mobile">
         {#each popularCityLinks as link (link.href)}
