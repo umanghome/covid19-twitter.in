@@ -534,7 +534,9 @@
     .split > * {
       width: 100%;
     }
-
+    li img {
+      max-width: 200px !important;
+    }
     #quick-links {
       order: 1;
     }
@@ -569,10 +571,6 @@
   @media screen and (max-width: 320px) {
     .list-split-on-mobile > * {
       width: 100%;
-    }
-    
-    li img {
-      max-width: 200px !important;
     }
   }
 </style>
