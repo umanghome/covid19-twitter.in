@@ -1,0 +1,33 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+}
+ 
+main {
+  font-family: sans-serif;
+  margin: 0 auto;
+  max-width: 600px;
+  padding: 0 20px 20px;
+}
+
+label,
+button {
+  cursor: pointer;
+}
+
+button {
+  font-size: 1.2rem;
+}
+
+li {
+  margin-bottom: 4px;
+}
+
+li img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+}
