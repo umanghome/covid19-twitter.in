@@ -206,8 +206,8 @@
     margin-bottom: 12px;
   }
 
-  #options {
-    margin-top: 24px;
+  hr {
+    margin: 24px auto;
   }
 
   #options .spaced > * {
@@ -276,6 +276,8 @@
 <main>
 	<h1>Twitter Search for COVID</h1>
 
+  <hr />
+
   <Tips />
 
   {#if previouslySearched.length > 0}
@@ -291,6 +293,8 @@
       <button id="clear" on:click|preventDefault={clearSavedLinks}>Clear Previous Searches</button>
     </div>
   {/if}
+
+  <hr />
 
   <div>
     <h2>Search</h2>
@@ -315,6 +319,14 @@
         <label for="alsoSearchFor-other">Other:</label>
         <input type="text" bind:value={inputs.otherAlsoSearchFor} id="alsoSearchFor-other" />
       </div>
+
+      <GeneratedLinks {links} />
+
+      <div>
+        <button>Generate Links</button>
+      </div>
+
+      <hr />
 
       <div id="options">
         <div class="split-two-one spaced">
@@ -361,16 +373,12 @@
     
         </div>
       </div>
-
-      <GeneratedLinks {links} />
-
-      <div>
-        <button>Generate Links</button>
-      </div>
     </form>
 
     <Modal show={$modal} />
   </div>
+
+  <hr />
 
   <div>
     <h2>Frequently Searched Cities</h2>
@@ -382,8 +390,15 @@
     </ol>
   </div>
 
+  <hr />
+
   <OtherResources />
+
+  <hr />
   <Donations />
+
+  <hr />
+
   <Feedback />
   
 </main>
