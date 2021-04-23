@@ -70,7 +70,7 @@
       checked: true,
     },
     required: {
-      keywords: ["required", "require", "requires"],
+      keywords: ["required", "require", "requires", "requirement", "requirements"],
       checked: true,
     },
     find: {
