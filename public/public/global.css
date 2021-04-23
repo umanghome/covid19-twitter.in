@@ -9,6 +9,10 @@ html {
 body {
   width: 100%;
 }
+
+*:not(a) {
+  color: #444444;
+}
  
 main {
   font-family: sans-serif;

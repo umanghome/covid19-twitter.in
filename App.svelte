@@ -198,7 +198,7 @@
   }
 
   #cities {
-    border: 2px solid black;
+    border: 2px solid #444444;
     display: block;
     width: 100%;
     font-size: 1.2rem;
