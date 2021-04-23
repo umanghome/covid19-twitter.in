@@ -5,7 +5,7 @@
   import Feedback from './Feedback.svelte';
   import OtherResources from './OtherResources.svelte';
   import Donations from './Donations.svelte';
-  import GeneratedLinks from './GeneratedLinks.svelte';
+  import GeneratedLinksModal from './GeneratedLinksModal.svelte';
 
   import { POPULAR_CITIES, STORAGE_KEY, LocalStorage, capitalCase } from './utils';
   import { modal } from './store';
@@ -180,7 +180,7 @@
       return;
     }
 
-    modal.set(bind(GeneratedLinks, { links }));
+    modal.set(bind(GeneratedLinksModal, { links }));
 
     LocalStorage.setItem(STORAGE_KEY.generated_links, links);
   }
@@ -256,6 +256,10 @@
   .checkbox-fields input {
     flex-shrink: 0;
   }
+
+  #generate-button-container {
+    margin-top: 24px;
+  }
 </style>
 
 <main>
@@ -300,9 +304,7 @@
         <input type="text" bind:value={inputs.otherAlsoSearchFor} id="alsoSearchFor-other" />
       </div>
 
-      <GeneratedLinks {links} />
-
-      <div>
+      <div id="generate-button-container">
         <button>Generate Links</button>
       </div>
 
