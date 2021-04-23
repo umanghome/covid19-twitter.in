@@ -308,7 +308,7 @@
 
 <main>
 	<h1>Twitter Search for COVID</h1>
-
+<div class="container">
   <div class="split">
     <div id="main-content">
       <div id="tips">
@@ -391,7 +391,7 @@
         </div>
 
         <div>
-          <button>Generate Links</button>
+          <button class="button theme">Generate Links</button>
         </div>
       </form>
 
@@ -437,5 +437,5 @@
     <div><a href="https://twitter.com/umanghome/status/1383759182495588355" target="_blank" rel="noopener noreferrer">Got feedback?</a></div>
     <div><a href="https://github.com/umanghome/twitter-search-covid19" target="_blank" rel="noopener noreferrer">Source code</a></div>
     <div>Made by <a href="https://twitter.com/umanghome" target="_blank" rel="noopener noreferrer">Umang</a> with ideas from a lot of folks on the Internet</div>
-  </div>
+  </div></div>
 </main>
