@@ -17,8 +17,8 @@
   };
   const checkboxes = {
     nearMe: false,
-    verifiedOnly: true,
-    excludeUnverified: true,
+    verifiedOnly: false,
+    excludeUnverified: false,
   };
   const alsoSearchFor = {
     beds: {
@@ -64,16 +64,28 @@
     food: {
       keywords: ["tiffin", "food"],
       checked: false
+    },
+    needed: {
+      keywords: ["needed", "need", "needs"],
+      checked: true,
+    },
+    required: {
+      keywords: ["required", "require", "requires", "requirement", "requirements"],
+      checked: true,
+    },
+    find: {
+      keywords: ["find", "finding"],
+      checked: true,
     }
   };
   const excludeKeywords = {
     needed: {
       keywords: ['needed'],
-      checked: true,
+      checked: false,
     },
     required: {
       keywords: ['required'],
-      checked: true,
+      checked: false,
     }
   };
 
