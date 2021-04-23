@@ -245,6 +245,8 @@
   .checkbox-fields > * {
     display: flex;
     width: 100%;
+    align-items: center;
+    margin: 4px 0;
   }
 
   .checkbox-fields label {
