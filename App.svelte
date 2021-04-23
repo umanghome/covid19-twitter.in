@@ -491,6 +491,7 @@
     margin-top: 15px;
     border: 1px solid rgb(0 0 0 / 10%);
     border-radius: 5px;   
+    box-sizing: border-box;
   }
 
   .split {
@@ -568,6 +569,10 @@
   @media screen and (max-width: 320px) {
     .list-split-on-mobile > * {
       width: 100%;
+    }
+    
+    li img {
+      max-width: 200px !important;
     }
   }
 </style>
