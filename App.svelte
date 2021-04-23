@@ -224,12 +224,6 @@
     height: auto;
   }
 
-  .split {
-    display: flex;
-    align-items: top;
-    flex-wrap: wrap;
-  }
-
   #tips {
     width: 100%;
   }
@@ -238,93 +232,44 @@
     border: 1px dashed blue;
   }
 
-  .highlight-red {
-    border: 1px solid red;
-    padding: 4px;
-  }
-
   #cities {
     border: 2px solid black;
   }
 
-  @media screen and (min-width: 769px) {
-    #main-content {
-      margin-right: 20px;
-      max-width: calc(100% - 20ch - 20px - 1em);
-    }
-
-    #quick-links {
-      max-width: 20ch;
-      flex-grow: 0;
-    }
-
-    .only-mobile {
-      display: none;
-    }
+  #main-content {
+    display: flex;
+    align-items: top;
   }
 
-  @media screen and (max-width: 768px) {
-    .split > * {
-      width: 100%;
-    }
-
-    #quick-links {
-      order: 1;
-    }
-
-    #tips {
-      order: 2;
-    }
-
-    #main-content {
-      order: 3;
-    }
-
-    #other-resources {
-      order: 4;
-    }
-
-    #donate {
-      order: 5;
-    }
-
-    .list-split-on-mobile {
-      display: flex;
-      flex-wrap: wrap;
-      padding-left: 1em;
-    }
-
-    .list-split-on-mobile > * {
-      width: 50%;
-    }
+  #search {
+    margin-right: 10px;
   }
 
-  @media screen and (max-width: 320px) {
-    .list-split-on-mobile > * {
-      width: 100%;
-    }
+  #quick-links {
+    padding-left: 20px;
+    border-left: 1px solid gray;
   }
 </style>
 
 <main>
 	<h1>Twitter Search for COVID</h1>
 
-  <div class="split">
-    <div id="main-content">
-      <div id="tips">
-        <h2>Tips</h2>
-        <ol>
-          <li><strong>Do NOT make advanced payments unless you are 100% sure about their authenticity</strong></li>
-          <li>Check for replies under the tweets</li>
-          <li>
-            Make sure search results are sorted by "Latest"
-            <br />
-            <img src="sort-click-here.jpg" alt="" />
-          </li>
-        </ol>
-      </div>
+  <div id="tips">
+    <h2>Tips</h2>
+    <ol>
+      <li><strong>Do NOT make advanced payments unless you are 100% sure about their authenticity</strong></li>
+      <li>Check for replies under the tweets</li>
+      <li>
+        Make sure search results are sorted by "Latest"
+        <br />
+        <img src="sort-click-here.jpg" alt="" />
+      </li>
+    </ol>
+  </div>
 
-      <h2>Search by city/cities</h2>
+  <div id="main-content">
+    <div id="search">
+      <h2>Search by City</h2>
       <form on:submit|preventDefault={generate}>
         <div>
           <label for="cities">Name of city</label>
@@ -333,7 +278,7 @@
         </div>
 
         <div>
-          Also search for:
+          Search for:
 
           {#each Object.keys(alsoSearchFor) as item (item)}
             <div>
@@ -407,32 +352,30 @@
         <button on:click={clearSavedLinks}>Clear saved links</button>
       {/if}
     </div>
+
     <div id="quick-links">
       <h2>Frequently Searched Cities</h2>
-
+  
       <ol class="list-split-on-mobile">
         {#each popularCityLinks as link (link.href)}
           <li><a href={link.href} target="_blank" rel="noopener noreferrer">{capitalCase(link.city)}</a></li>
         {/each}
       </ol>
-
-      <h3 class="only-mobile highlight-red">Scroll down to search for more cities and keywords</h3>
-    </div>
-    <div id="other-resources">
-      <h2>Other Resources</h2>
-      <ul>
-        <li><a href="https://covidfacts.in/" target="_blank" rel="noopener noreferrer">covidfacts.in</a></li>
-      </ul>
-    </div>
-
-    <div id="donate">
-      <h2>[VOLUNTARY] Places you can Donate to</h2>
-      <ul>
-        <li><a href="https://hemkuntfoundation.com/donate-now/" target="_blank" rel="noopener noreferrer">Hemkunt Foundation</a> has been helping out with Oxygen Cylinders. 80G donation receipts available.</li>
-      </ul>
     </div>
   </div>
 
+  <div id="other-resources">
+    <h2>Other Resources</h2>
+    <ul>
+      <li><a href="https://covidfacts.in/" target="_blank" rel="noopener noreferrer">covidfacts.in</a></li>
+    </ul>
+  </div>
+  <div id="donate">
+    <h2>[VOLUNTARY] Places you can Donate to</h2>
+    <ul>
+      <li><a href="https://hemkuntfoundation.com/donate-now/" target="_blank" rel="noopener noreferrer">Hemkunt Foundation</a> has been helping out with Oxygen Cylinders. 80G donation receipts available.</li>
+    </ul>
+  </div>
   <div class="feedback">
     <div><a href="https://twitter.com/umanghome/status/1383759182495588355" target="_blank" rel="noopener noreferrer">Got feedback?</a></div>
     <div><a href="https://github.com/umanghome/twitter-search-covid19" target="_blank" rel="noopener noreferrer">Source code</a></div>
