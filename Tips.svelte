@@ -1,7 +1,14 @@
 <script>
   export let large = true;
 </script>
-
+<style>
+ .img-div{
+     display: block;
+     margin-left: auto;
+     margin-right: auto;
+     width: 50%;
+ }
+</style>
 <div>
   <h2>Tips</h2>
   <ol>
@@ -12,7 +19,7 @@
     <li>
       Make sure search results are sorted by "Latest"
       <br />
-      <img src="sort-click-here.jpg" alt="" />
+      <img class="img-div" src="sort-click-here.jpg" alt="" />
     </li>
   </ol>
 </div>

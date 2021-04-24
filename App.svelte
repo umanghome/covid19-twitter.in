@@ -74,6 +74,14 @@
     required: {
       keywords: ['required', 'requirement'],
       checked: true,
+    },
+    need: {
+      keywords: ['need'],
+      checked: true,
+    },
+    require: {
+      keywords: ['require', 'requirement'],
+      checked: true,
     }
   };
 
@@ -193,6 +201,9 @@
 </script>
 
 <style>
+  * {
+      background-color: #CAEFD1;
+  }
   .spaced > * {
     margin-bottom: 12px;
   }
@@ -259,6 +270,11 @@
 
   #generate-button-container {
     margin-top: 24px;
+    text-align: center;
+  }
+
+  h2 {
+      text-align: center;
   }
 </style>
 
@@ -285,9 +301,9 @@
     
     <form on:submit|preventDefault={generate}>
       <div>
-        <label for="cities">Name of city</label>
+        <label for="cities">Name Of City</label>
         <br />
-        <input type="text" bind:value={inputs.cities} id="cities" placeholder="Enter city name here" />
+        <input type="text" bind:value={inputs.cities} id="cities" placeholder="Name Of Your City" />
       </div>
 
       <div class="split-three-two checkbox-fields">
