@@ -1,0 +1,61 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: #fafafa;
+}
+
+body {
+  width: 100%;
+  margin: 0;
+  margin-bottom: 24px;
+}
+
+*:not(a) {
+  color: #444444;
+}
+ 
+main {
+  font-family: sans-serif;
+  margin: 0 auto;
+  max-width: 600px;
+  padding: 0 20px 20px;
+}
+
+label,
+button {
+  cursor: pointer;
+}
+
+button {
+  font-size: 1.2rem;
+}
+
+li {
+  margin-bottom: 4px;
+}
+
+li img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+}
+
+h1 {
+  font-size: 1.6em;
+}
+
+h2 {
+  font-size: 1.4em;
+  margin: 0.5em 0;
+}
+
+h3 {
+  font-size: 1.2em;
+}
+
+ol, ul {
+  padding-left: 3ch;
+}
