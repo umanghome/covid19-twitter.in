@@ -5,6 +5,7 @@ export const themes = [
         primaryText: '#282230',
         linkText: '#4759db',
         background: '#f1f1f1',
+        btnBackground: '#f1f1f1'
       },
     },
     {
@@ -13,6 +14,7 @@ export const themes = [
         primaryText: '#f1f1f1',
         linkText: '#eff05f',
         background: '#27323a',
+        btnBackground: '#050a4e'
       },
     },
   ]

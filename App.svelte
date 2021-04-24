@@ -1,6 +1,5 @@
 <script>
   import Modal, { bind } from 'svelte-simple-modal';
-  import Typeahead from "svelte-typeahead";
 
   import Tips from './Tips.svelte';
   import Feedback from './Feedback.svelte';
@@ -12,10 +11,6 @@
 
   import { POPULAR_CITIES, STORAGE_KEY, LocalStorage, capitalCase } from './utils';
   import { modal } from './store';
-
-  import { citiesData } from './public/cities.js';
-
-  let citiesList = citiesData.cities || [];
 
   const inputs = {
     cities: "",
@@ -306,13 +301,7 @@
         <div>
           <label for="cities">Name of city</label>
           <br />
-          <!-- <input type="text" bind:value={inputs.cities} id="cities" placeholder="Enter city name here" /> -->
-          <Typeahead
-              placeholder={`Enter city name here (e.g. "delhi")`}
-              hideLabel
-              data={citiesList}
-              extract={(item) => item.City}
-              bind:value={inputs.cities} />
+          <input type="text" bind:value={inputs.cities} id="cities" placeholder="Enter city name here" />
         </div>
 
         <div class="split-three-two checkbox-fields">
