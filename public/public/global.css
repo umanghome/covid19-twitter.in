@@ -14,7 +14,11 @@ body {
 }
 
 *:not(a) {
-  color: #444444;
+  color: var(--theme-primaryText);
+}
+
+a {
+  color: var(--theme-linkText);
 }
  
 main {
@@ -45,6 +49,7 @@ li img {
 
 h1 {
   font-size: 1.6em;
+  flex: 1;
 }
 
 h2 {

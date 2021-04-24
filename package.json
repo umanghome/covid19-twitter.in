@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "svelte": "^3.32.3",
-    "svelte-simple-modal": "^0.10.0"
+    "svelte-simple-modal": "^0.10.0",
+    "svelte-typeahead": "^3.0.0"
   },
   "scripts": {
     "build": "rollup -c",

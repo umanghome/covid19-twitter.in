@@ -1,14 +1,21 @@
 <script>
   import Modal, { bind } from 'svelte-simple-modal';
+  import Typeahead from "svelte-typeahead";
 
   import Tips from './Tips.svelte';
   import Feedback from './Feedback.svelte';
   import OtherResources from './OtherResources.svelte';
   import Donations from './Donations.svelte';
   import GeneratedLinksModal from './GeneratedLinksModal.svelte';
+  import ThemeContext from "./ThemeContext.svelte";
+  import ThemeToggle from "./ThemeToggle.svelte";
 
   import { POPULAR_CITIES, STORAGE_KEY, LocalStorage, capitalCase } from './utils';
   import { modal } from './store';
+
+  import { citiesData } from './public/cities.js';
+
+  let citiesList = citiesData.cities || [];
 
   const inputs = {
     cities: "",
@@ -260,143 +267,162 @@
   #generate-button-container {
     margin-top: 24px;
   }
+
+  :global(html) {
+    background-color: var(--theme-background);
+    color: var(--theme-primaryText);
+  }
+
+  .main-header {
+    display: flex;
+  }
 </style>
 
-<main>
-	<h1>Twitter Search for COVID</h1>
+<ThemeContext>
+  <main>
+    <div class="main-header">
+      <h1>Twitter Search for COVID</h1>
+      <ThemeToggle />
+    </div>
+    <hr />
 
-  <hr />
+    <nav class="split-two-one">
+      <a href="#frequent-searches">Frequently Searched Cities</a>
+      {#if previouslySearched.length > 0}
+        <a href="#previous-searches">Previous Searches</a>
+      {/if}
+    </nav>
 
-  <nav class="split-two-one">
-    <a href="#frequent-searches">Frequently Searched Cities</a>
-    {#if previouslySearched.length > 0}
-      <a href="#previous-searches">Previous Searches</a>
-    {/if}
-  </nav>
+    <hr />
 
-  <hr />
+    <Tips />
 
-  <Tips />
+    <hr />
 
-  <hr />
-
-  <div>
-    <h2>Search</h2>
-    
-    <form on:submit|preventDefault={generate}>
-      <div>
-        <label for="cities">Name of city</label>
-        <br />
-        <input type="text" bind:value={inputs.cities} id="cities" placeholder="Enter city name here" />
-      </div>
-
-      <div class="split-three-two checkbox-fields">
-        {#each Object.keys(alsoSearchFor) as item (item)}
-          <div>
-            <input type="checkbox" bind:checked={alsoSearchFor[item].checked} id={`alsoSearchFor-${item}`} />
-            <label for={`alsoSearchFor-${item}`}>{capitalCase(item)}</label>
-          </div>
-        {/each}
-      </div>
-
-      <div class="other-input">
-        <label for="alsoSearchFor-other">Other:</label>
-        <input type="text" bind:value={inputs.otherAlsoSearchFor} id="alsoSearchFor-other" />
-      </div>
-
-      <div id="generate-button-container">
-        <button>Generate Links</button>
-      </div>
-
-      <hr />
-
-      <div id="options">
-        <div class="split-two-one spaced">
-          <div>
-            <input type="checkbox" bind:checked={checkboxes.verifiedOnly} id="verifiedOnly" />
-            <label for="verifiedOnly">
-              Show verified tweets only
-              <br />
-              <strong>Uncheck this for smaller cities</strong>
-              <br />
-              (Tweet should contain "verified")
-            </label>
-          </div>
-
-          <div>
-            <input type="checkbox" bind:checked={checkboxes.excludeUnverified} id="excludeUnverified" />
-            <label for="excludeUnverified">
-              Exclude unverified tweets
-              <br />
-              (Tweet should not contain "not verified" and "unverified")
-            </label>
-          </div>
-
-          <div>
-            Tweets should <strong>NOT</strong> have these words:
+    <div>
+      <h2>Search</h2>
       
-            {#each Object.keys(excludeKeywords) as item (item)}
-              <div>
-                <input type="checkbox" bind:checked={excludeKeywords[item].checked} id={`excludeKeywords-${item}`} />
-                <label for={`excludeKeywords-${item}`}>"{item}"</label>
-              </div>
-            {/each}
-      
-            <div class="other-input">
-              <label for="excludeKeywords-other">Other:</label>
-              <input type="text" bind:value={inputs.otherExcludedKeywords} id="excludeKeywords-other" />
-            </div>
-          </div>
-      
-          <div>
-            <input type="checkbox" bind:checked={checkboxes.nearMe} id="nearMe" />
-            <label for="nearMe">Show Tweets near me</label>
-          </div>
-    
+      <form on:submit|preventDefault={generate}>
+        <div>
+          <label for="cities">Name of city</label>
+          <br />
+          <!-- <input type="text" bind:value={inputs.cities} id="cities" placeholder="Enter city name here" /> -->
+          <Typeahead
+              placeholder={`Enter city name here (e.g. "delhi")`}
+              hideLabel
+              data={citiesList}
+              extract={(item) => item.City}
+              bind:value={inputs.cities} />
         </div>
-      </div>
-    </form>
 
-    <Modal show={$modal} transitionBgProps={{ duration: 0 }} transitionWindowProps={{ duration: 0 }} />
-  </div>
+        <div class="split-three-two checkbox-fields">
+          {#each Object.keys(alsoSearchFor) as item (item)}
+            <div>
+              <input type="checkbox" bind:checked={alsoSearchFor[item].checked} id={`alsoSearchFor-${item}`} />
+              <label for={`alsoSearchFor-${item}`}>{capitalCase(item)}</label>
+            </div>
+          {/each}
+        </div>
 
-  <hr />
+        <div class="other-input">
+          <label for="alsoSearchFor-other">Other:</label>
+          <input type="text" bind:value={inputs.otherAlsoSearchFor} id="alsoSearchFor-other" />
+        </div>
 
-  <div id="frequent-searches">
-    <h2>Frequently Searched Cities</h2>
+        <div id="generate-button-container">
+          <button>Generate Links</button>
+        </div>
 
-    <ol class="split-three-two">
-      {#each popularCityLinks as link (link.href)}
-        <li><a href={link.href} target="_blank" rel="noopener noreferrer">{capitalCase(link.city)}</a></li>
-      {/each}
-    </ol>
-  </div>
+        <hr />
 
-  <hr />
+        <div id="options">
+          <div class="split-two-one spaced">
+            <div>
+              <input type="checkbox" bind:checked={checkboxes.verifiedOnly} id="verifiedOnly" />
+              <label for="verifiedOnly">
+                Show verified tweets only
+                <br />
+                <strong>Uncheck this for smaller cities</strong>
+                <br />
+                (Tweet should contain "verified")
+              </label>
+            </div>
 
-  {#if previouslySearched.length > 0}
-    <div id="previous-searches">
-      <h2>Previous Searches</h2>
+            <div>
+              <input type="checkbox" bind:checked={checkboxes.excludeUnverified} id="excludeUnverified" />
+              <label for="excludeUnverified">
+                Exclude unverified tweets
+                <br />
+                (Tweet should not contain "not verified" and "unverified")
+              </label>
+            </div>
 
-      <ol class="split-three-two">
-        {#each previouslySearched as link (link.href)}
-          <li><a href={link.href} target="_blank" rel="noopener noreferrer">{capitalCase(link.city)}</a></li>
-        {/each}
-      </ol>
+            <div>
+              Tweets should <strong>NOT</strong> have these words:
+        
+              {#each Object.keys(excludeKeywords) as item (item)}
+                <div>
+                  <input type="checkbox" bind:checked={excludeKeywords[item].checked} id={`excludeKeywords-${item}`} />
+                  <label for={`excludeKeywords-${item}`}>"{item}"</label>
+                </div>
+              {/each}
+        
+              <div class="other-input">
+                <label for="excludeKeywords-other">Other:</label>
+                <input type="text" bind:value={inputs.otherExcludedKeywords} id="excludeKeywords-other" />
+              </div>
+            </div>
+        
+            <div>
+              <input type="checkbox" bind:checked={checkboxes.nearMe} id="nearMe" />
+              <label for="nearMe">Show Tweets near me</label>
+            </div>
+      
+          </div>
+        </div>
+      </form>
 
-      <button id="clear" on:click|preventDefault={clearSavedLinks}>Clear Previous Searches</button>
+      <Modal show={$modal} transitionBgProps={{ duration: 0 }} transitionWindowProps={{ duration: 0 }} />
     </div>
 
     <hr />
-  {/if}
 
-  <OtherResources />
+    <div id="frequent-searches">
+      <h2>Frequently Searched Cities</h2>
 
-  <hr />
-  <Donations />
+      <ol class="split-three-two">
+        {#each popularCityLinks as link (link.href)}
+          <li><a href={link.href} target="_blank" rel="noopener noreferrer">{capitalCase(link.city)}</a></li>
+        {/each}
+      </ol>
+    </div>
 
-  <hr />
+    <hr />
 
-  <Feedback />
-  
-</main>
+    {#if previouslySearched.length > 0}
+      <div id="previous-searches">
+        <h2>Previous Searches</h2>
+
+        <ol class="split-three-two">
+          {#each previouslySearched as link (link.href)}
+            <li><a href={link.href} target="_blank" rel="noopener noreferrer">{capitalCase(link.city)}</a></li>
+          {/each}
+        </ol>
+
+        <button id="clear" on:click|preventDefault={clearSavedLinks}>Clear Previous Searches</button>
+      </div>
+
+      <hr />
+    {/if}
+
+    <OtherResources />
+
+    <hr />
+    <Donations />
+
+    <hr />
+
+    <Feedback />
+    
+  </main>
+</ThemeContext>
