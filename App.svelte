@@ -72,7 +72,7 @@
       checked: true,
     },
     required: {
-      keywords: ['required'],
+      keywords: ['required', 'requirement'],
       checked: true,
     }
   };
