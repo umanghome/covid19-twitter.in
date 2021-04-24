@@ -11,6 +11,7 @@ export const POPULAR_CITIES = [
   'chennai',
   'kolkata',
   'goa',
+  'jaipur'
 ];
 
 export function capitalCase(string) {
