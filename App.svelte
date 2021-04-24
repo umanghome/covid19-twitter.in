@@ -1,24 +1,31 @@
 <script>
-  import Modal, { bind } from 'svelte-simple-modal';
+  import Modal, { bind } from "svelte-simple-modal";
+  import Select from "svelte-select";
+  import Tips from "./Tips.svelte";
+  import Feedback from "./Feedback.svelte";
+  import OtherResources from "./OtherResources.svelte";
+  import Donations from "./Donations.svelte";
+  import GeneratedLinksModal from "./GeneratedLinksModal.svelte";
 
-  import Tips from './Tips.svelte';
-  import Feedback from './Feedback.svelte';
-  import OtherResources from './OtherResources.svelte';
-  import Donations from './Donations.svelte';
-  import GeneratedLinksModal from './GeneratedLinksModal.svelte';
-
-  import { POPULAR_CITIES, STORAGE_KEY, LocalStorage, capitalCase } from './utils';
-  import { modal } from './store';
-
+  import {
+    POPULAR_CITIES,
+    STORAGE_KEY,
+    LocalStorage,
+    capitalCase,
+    filterFunction,
+    myFunction
+  } from "./utils";
+  import { cities } from "./cities";
+  import { modal } from "./store";
   const inputs = {
     cities: "",
     otherAlsoSearchFor: "",
-    otherExcludedKeywords: '',
+    otherExcludedKeywords: ""
   };
   const checkboxes = {
     nearMe: false,
     verifiedOnly: true,
-    excludeUnverified: true,
+    excludeUnverified: true
   };
   const alsoSearchFor = {
     beds: {
@@ -27,7 +34,7 @@
     },
     ICU: {
       keywords: ["icu"],
-      checked: true,
+      checked: true
     },
     oxygen: {
       keywords: ["oxygen"],
@@ -39,7 +46,7 @@
     },
     tests: {
       keywords: ["test", "tests", "testing"],
-      checked: false,
+      checked: false
     },
     fabiflu: {
       keywords: ["fabiflu"],
@@ -69,21 +76,31 @@
   const excludeKeywords = {
     needed: {
       keywords: ["needed", "need", "needs"],
-      checked: true,
+      checked: true
     },
     required: {
-      keywords: ["required", "require", "requires", "requirement", "requirements"],
-      checked: true,
+      keywords: [
+        "required",
+        "require",
+        "requires",
+        "requirement",
+        "requirements"
+      ],
+      checked: true
     }
   };
 
   let links = [];
   let previouslySearched = LocalStorage.getItem(STORAGE_KEY.generated_links, []);
   let popularCityLinks = [];
-
   $: alsoSearchFor, inputs, checkboxes, excludeKeywords, generateLinks();
-  $: alsoSearchFor, inputs, checkboxes, excludeKeywords, generatePopularCityLinks();
+  $: alsoSearchFor,
+    inputs,
+    checkboxes,
+    excludeKeywords,
+    generatePopularCityLinks();
 
+  //filterFunction();
   function getAlsoSearchForString() {
     const keywords = Object.keys(alsoSearchFor).reduce((keywordsSoFar, item) => {
       if (alsoSearchFor[item].checked) {
@@ -105,22 +122,28 @@
   }
 
   function getExcludedKeywordsString() {
-    const keywords = Object.keys(excludeKeywords).reduce((keywordsSoFar, item) => {
-      if (excludeKeywords[item].checked) {
-        return keywordsSoFar.concat(excludeKeywords[item].keywords);
-      } else {
-        return keywordsSoFar;
-      }
-    }, []);
+    const keywords = Object.keys(excludeKeywords).reduce(
+      (keywordsSoFar, item) => {
+        if (excludeKeywords[item].checked) {
+          return keywordsSoFar.concat(excludeKeywords[item].keywords);
+        } else {
+          return keywordsSoFar;
+        }
+      },
+      []
+    );
 
     if (inputs.otherExcludedKeywords) {
       keywords.push(inputs.otherExcludedKeywords);
     }
 
-    return keywords.map(keyword => `-"${keyword}"`).join(' ');
+    return keywords.map(keyword => `-"${keyword}"`).join(" ");
   }
 
-  function generateCityLinkObject (city) {
+  function handleSelectCity(event) {
+    inputs.cities = event.detail.value;
+  }
+  function generateCityLinkObject(city) {
     return {
       city,
       href: generateLinkForCity(city)
@@ -137,7 +160,7 @@
       getAlsoSearchForString(),
       checkboxes.excludeUnverified && '-"not verified"',
       checkboxes.excludeUnverified && '-"unverified"',
-      getExcludedKeywordsString(),
+      getExcludedKeywordsString()
     ]
       .filter(Boolean)
       .join(" ");
@@ -155,10 +178,10 @@
     return link;
   }
 
-  function generateLinks () {
+  function generateLinks() {
     if (!inputs.cities) {
       links = [];
-      
+
       return;
     }
 
@@ -287,7 +310,7 @@
       <div>
         <label for="cities">Name of city</label>
         <br />
-        <input type="text" bind:value={inputs.cities} id="cities" placeholder="Enter city name here" />
+        <Select id="cities" placeholder="Enter city name here"  items={cities} on:select={handleSelectCity}></Select>
       </div>
 
       <div class="split-three-two checkbox-fields">
