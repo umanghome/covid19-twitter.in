@@ -70,11 +70,11 @@
   };
   const excludeKeywords = {
     needed: {
-      keywords: ['needed'],
+      keywords: ["needed", "need", "needs"],
       checked: true,
     },
     required: {
-      keywords: ['required', 'requirement'],
+      keywords: ["required", "require", "requires", "requirement", "requirements"],
       checked: true,
     }
   };
@@ -346,27 +346,20 @@
               </label>
             </div>
 
-            <div>
-              Tweets should <strong>NOT</strong> have these words:
-        
-              {#each Object.keys(excludeKeywords) as item (item)}
-                <div>
-                  <input type="checkbox" bind:checked={excludeKeywords[item].checked} id={`excludeKeywords-${item}`} />
-                  <label for={`excludeKeywords-${item}`}>"{item}"</label>
-                </div>
-              {/each}
-        
-              <div class="other-input">
-                <label for="excludeKeywords-other">Other:</label>
-                <input type="text" bind:value={inputs.otherExcludedKeywords} id="excludeKeywords-other" />
-              </div>
-            </div>
-        
-            <div>
-              <input type="checkbox" bind:checked={checkboxes.nearMe} id="nearMe" />
-              <label for="nearMe">Show Tweets near me</label>
-            </div>
+          <div>
+            Tweets should <strong>NOT</strong> have these words:
       
+            {#each Object.keys(excludeKeywords) as item (item)}
+              <div>
+                <input type="checkbox" bind:checked={excludeKeywords[item].checked} id={`excludeKeywords-${item}`} />
+                <label for={`excludeKeywords-${item}`}>{item} (and its variants)</label>
+              </div>
+            {/each}
+      
+            <div class="other-input">
+              <label for="excludeKeywords-other">Other:</label>
+              <input type="text" bind:value={inputs.otherExcludedKeywords} id="excludeKeywords-other" />
+            </div>
           </div>
         </div>
       </form>
