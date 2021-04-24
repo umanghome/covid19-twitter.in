@@ -1,2 +1,2 @@
 # twitter-search-covid19
-Created with CodeSandbox
+A WebApp to find resources near your location instantly.
