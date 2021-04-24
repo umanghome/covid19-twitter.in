@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "svelte": "^3.32.3",
+    "svelte-select": "3.17.0",
     "svelte-simple-modal": "^0.10.0"
   },
   "scripts": {
