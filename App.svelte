@@ -140,6 +140,9 @@
     return keywords.map(keyword => `-"${keyword}"`).join(" ");
   }
 
+  function handleSelectCity(event) {
+    inputs.cities = event.detail.value;
+  }
   function generateCityLinkObject(city) {
     return {
       city,
@@ -307,8 +310,7 @@
       <div>
         <label for="cities">Name of city</label>
         <br />
-        <Select bind:value={inputs.cities} id="cities" placeholder="Enter city name here"  items={cities}></Select>
-        <!-- <input type="text" bind:value={inputs.cities} id="cities" placeholder="Enter city name here" on:keyup={filterFunction()}/> -->
+        <Select id="cities" placeholder="Enter city name here"  items={cities} on:select={handleSelectCity}></Select>
       </div>
 
       <div class="split-three-two checkbox-fields">
