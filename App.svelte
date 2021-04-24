@@ -68,11 +68,11 @@
   };
   const excludeKeywords = {
     needed: {
-      keywords: ['needed'],
+      keywords: ["needed", "need", "needs"],
       checked: true,
     },
     required: {
-      keywords: ['required', 'requirement'],
+      keywords: ["required", "require", "requires", "requirement", "requirements"],
       checked: true,
     }
   };
@@ -338,7 +338,7 @@
             {#each Object.keys(excludeKeywords) as item (item)}
               <div>
                 <input type="checkbox" bind:checked={excludeKeywords[item].checked} id={`excludeKeywords-${item}`} />
-                <label for={`excludeKeywords-${item}`}>"{item}"</label>
+                <label for={`excludeKeywords-${item}`}>{item} (and its variants)</label>
               </div>
             {/each}
       
