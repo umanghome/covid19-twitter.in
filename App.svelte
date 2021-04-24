@@ -198,11 +198,12 @@
   }
 
   #cities {
-    border: 2px solid #444444;
+    border: 2px solid #1565c0;
     display: block;
     width: 100%;
-    font-size: 1.2rem;
-    padding: 4px 8px;
+    font-size: 1rem;
+    height: 3rem;
+    padding: 0.25rem;
     margin-bottom: 12px;
   }
 

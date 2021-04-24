@@ -1,22 +1,33 @@
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
   background-color: #fafafa;
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
 }
 
 body {
+  font-family: Roboto, sans-serif;
   width: 100%;
-  margin: 0;
-  margin-bottom: 24px;
+  font-size: 1rem;
+  min-width: 100%;
+  max-width: 100%;
+  color: #212529;
 }
 
-*:not(a) {
-  color: #444444;
+a {
+  font-size: 1rem;
+  color: #1565c0 !important;
+  text-decoration: none !important;
 }
- 
+
+
 main {
   font-family: sans-serif;
   margin: 0 auto;
@@ -24,13 +35,29 @@ main {
   padding: 0 20px 20px;
 }
 
-label,
 button {
+  border: 0;
+  margin: 0.5rem;
+  outline: none;
   cursor: pointer;
+  font-weight: 500;
+  overflow: hidden;
+  letter-spacing: 0;
+  position: relative;
+  display: inline-flex;
+  text-decoration: none;
+  border-radius: 0.2rem;
+  padding: 0.55rem 1.5rem;
+  color: #ffffff !important;
+  font-size: 0.9rem !important;
+  text-align: center !important;
+  background: #1565c0 !important;
+  box-shadow: 0 1px 0px 1px #00000025;
 }
 
-button {
-  font-size: 1.2rem;
+label {
+  padding: 0.5rem;
+  cursor: pointer;
 }
 
 li {
@@ -56,6 +83,7 @@ h3 {
   font-size: 1.2em;
 }
 
-ol, ul {
+ol,
+ul {
   padding-left: 3ch;
 }
