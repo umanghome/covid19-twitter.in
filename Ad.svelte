@@ -24,5 +24,7 @@
 <a href="https://twitter.com/umanghome/status/1386285176255180808" target="_blank" class="ad">
   This page got 1,88,000 views yesterday.
   <br />
-  Want to run your ad here? Click me.
+  Donate 50K INR to run your ad here.
+  <br />
+  Click me to get started
 </a>
