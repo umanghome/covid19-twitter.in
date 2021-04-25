@@ -80,6 +80,7 @@
   let links = [];
   let previouslySearched = LocalStorage.getItem(STORAGE_KEY.generated_links, []);
   let popularCityLinks = [];
+  let twitterSearchUrl = '';
 
   $: alsoSearchFor, inputs, checkboxes, excludeKeywords, generateLinks();
   $: alsoSearchFor, inputs, checkboxes, excludeKeywords, generatePopularCityLinks();
@@ -185,6 +186,10 @@
     LocalStorage.setItem(STORAGE_KEY.generated_links, links);
   }
 
+  function createTwitterLink() {
+    twitterSearchUrl = generateLinkForCity(inputs.cities.split(',')[0]);
+  }
+
   function clearSavedLinks() {
     previouslySearched = [];
 
@@ -260,6 +265,10 @@
   #generate-button-container {
     margin-top: 24px;
   }
+
+  #live-twitter-url {
+    padding: 16px 0px;
+  }
 </style>
 
 <main>
@@ -283,11 +292,11 @@
   <div>
     <h2>Search</h2>
     
-    <form on:submit|preventDefault={generate}>
+    <form on:change={createTwitterLink} on:submit|preventDefault={generate}>
       <div>
         <label for="cities">Name of city</label>
         <br />
-        <input type="text" bind:value={inputs.cities} id="cities" placeholder="Enter city name here" />
+        <input on:keyup={createTwitterLink} type="text" bind:value={inputs.cities} id="cities" placeholder="Enter city name here" />
       </div>
 
       <div class="split-three-two checkbox-fields">
@@ -308,6 +317,11 @@
         <button>Generate Links</button>
       </div>
 
+      {#if twitterSearchUrl && inputs.cities && inputs.cities.split(',').length === 1}
+        <div id="live-twitter-url">
+          <a target="_blank" href={twitterSearchUrl}>Open Twitter Results for {inputs.cities.split(',')[0]}</a>
+        </div>
+      {/if}
       <hr />
 
       <div id="options">
