@@ -1,9 +1,8 @@
 <style>
   .ad {
     background: #777777;
-    color: white;
+    color: #fafafa;
     height: 100px;
-    width: 350px;
     max-width: 100%;
     text-align: center;
     display: flex;
@@ -24,7 +23,7 @@
 <a href="https://twitter.com/umanghome/status/1386285176255180808" target="_blank" class="ad">
   This page got 1,88,000 views yesterday.
   <br />
-  Donate 50K INR to run your ad here.
+  To run your ad here, donate 50K INR to help patients get oxygen.
   <br />
-  Click me to get started
+  Click here to get started
 </a>
