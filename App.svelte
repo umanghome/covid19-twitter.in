@@ -6,6 +6,7 @@
   import OtherResources from './OtherResources.svelte';
   import Donations from './Donations.svelte';
   import GeneratedLinksModal from './GeneratedLinksModal.svelte';
+  import Ad from './Ad.svelte';
 
   import { POPULAR_CITIES, STORAGE_KEY, LocalStorage, capitalCase } from './utils';
   import { modal } from './store';
@@ -272,7 +273,7 @@
     {#if previouslySearched.length > 0}
       <a href="#previous-searches">Previous Searches</a>
     {/if}
-  </nav>
+  </nav>  
 
   <hr />
 
@@ -359,6 +360,10 @@
 
     <Modal show={$modal} transitionBgProps={{ duration: 0 }} transitionWindowProps={{ duration: 0 }} />
   </div>
+
+  <hr />
+
+  <Ad />
 
   <hr />
 

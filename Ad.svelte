@@ -16,6 +16,7 @@
 
   p {
     text-align: center;
+    margin-top: 12px;
   }
 </style>
 
