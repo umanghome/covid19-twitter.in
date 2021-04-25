@@ -306,7 +306,7 @@
       </div>
 
       <div id="generate-button-container">
-        <button>Generate Links</button>
+        <button>Search or Generate Links</button>
       </div>
 
       <hr />

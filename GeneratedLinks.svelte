@@ -10,9 +10,7 @@
   }
 
   p {
-    color: red;
-    font-size: 0.8rem;
-    margin-top: 0;
+    margin-bottom: 0;
   }
 
   ol {
@@ -22,8 +20,8 @@
 
 <div>
   <h3>Your Generated Links</h3>
-
   {#if links.length > 0}
+    <p>Click on city name to go to Twitter Search</p>
     <ol id="city-links">
       {#each links as link (link.href)}
         <li><a href={link.href} target="_blank" rel="noopener noreferrer">{capitalCase(link.city)}</a></li>
