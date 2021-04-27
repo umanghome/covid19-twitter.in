@@ -65,7 +65,11 @@
     food: {
       keywords: ["tiffin", "food"],
       checked: false
-    }
+    },
+    ambulance: {
+      keywords: ["ambulance"],
+      checked: false
+    },
   };
   const excludeKeywords = {
     needed: {
