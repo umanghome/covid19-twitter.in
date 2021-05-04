@@ -11,6 +11,8 @@
     "sirv-cli": "^0.3.1"
   },
   "dependencies": {
+    "cli": "^1.0.1",
+    "github": "^14.0.0",
     "svelte": "^3.32.3",
     "svelte-simple-modal": "^0.10.0"
   },
