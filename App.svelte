@@ -7,9 +7,10 @@
   import Donations from './Donations.svelte';
   import GeneratedLinksModal from './GeneratedLinksModal.svelte';
   import Ad from './Ad.svelte';
-
   import { POPULAR_CITIES, STORAGE_KEY, LocalStorage, capitalCase } from './utils';
   import { modal } from './store';
+  import  Importantinformation  from './importantinformation.svelte';
+ 
 
   const inputs = {
     cities: "",
@@ -366,6 +367,9 @@
   </div>
 
   <hr />
+  <Importantinformation />
+
+  <hr />
 
   <Ad />
 
@@ -401,9 +405,11 @@
 
   <OtherResources />
 
+
+
   <hr />
   <Donations />
-
+ 
   <hr />
 
   <Feedback />
