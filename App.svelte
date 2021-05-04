@@ -8,6 +8,7 @@
   import GeneratedLinksModal from './GeneratedLinksModal.svelte';
   import ThemeContext from "./ThemeContext.svelte";
   import ThemeToggle from "./ThemeToggle.svelte";
+  import Ad from './Ad.svelte';
 
   import { POPULAR_CITIES, STORAGE_KEY, LocalStorage, capitalCase } from './utils';
   import { modal } from './store';
@@ -66,7 +67,11 @@
     food: {
       keywords: ["tiffin", "food"],
       checked: false
-    }
+    },
+    ambulance: {
+      keywords: ["ambulance"],
+      checked: false
+    },
   };
   const excludeKeywords = {
     needed: {
@@ -286,7 +291,7 @@
       {#if previouslySearched.length > 0}
         <a href="#previous-searches">Previous Searches</a>
       {/if}
-    </nav>
+    </nav>  
 
     <hr />
 
@@ -319,7 +324,7 @@
         </div>
 
         <div id="generate-button-container">
-          <button>Generate Links</button>
+          <button>Search or Generate Links</button>
         </div>
 
         <hr />
@@ -369,15 +374,19 @@
 
     <hr />
 
-    <div id="frequent-searches">
-      <h2>Frequently Searched Cities</h2>
+  <Ad />
 
-      <ol class="split-three-two">
-        {#each popularCityLinks as link (link.href)}
-          <li><a href={link.href} target="_blank" rel="noopener noreferrer">{capitalCase(link.city)}</a></li>
-        {/each}
-      </ol>
-    </div>
+  <hr />
+
+  <div id="frequent-searches">
+    <h2>Frequently Searched Cities</h2>
+
+    <ol class="split-three-two">
+      {#each popularCityLinks as link (link.href)}
+        <li><a href={link.href} target="_blank" rel="noopener noreferrer">{capitalCase(link.city)}</a></li>
+      {/each}
+    </ol>
+  </div>
 
     <hr />
 
