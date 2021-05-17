@@ -70,6 +70,10 @@
       keywords: ["ambulance"],
       checked: false
     },
+    'amphotericin B': {
+      keywords: ["amphotericin b", "amphotericin"],
+      checked: false
+    }
   };
   const excludeKeywords = {
     needed: {
