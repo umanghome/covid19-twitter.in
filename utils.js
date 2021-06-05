@@ -14,9 +14,18 @@ export const POPULAR_CITIES = [
   'jaipur'
 ];
 
+/**
+ * A function which capitalises the first letter in a string 
+ * @param {String} string - The input string
+ * @returns {String|undefined}
+ */
 export function capitalCase(string) {
   if (!string) {
-    return string;
+    return undefined;
+  }
+
+  if(typeof string !== 'string'){
+    throw new TypeError(`Expected type "string" received type "${typeof string}"`);
   }
 
   return string[0].toUpperCase() + string.slice(1);
@@ -28,10 +37,10 @@ export const STORAGE_KEY = {
 
 export const LocalStorage = {
   /**
-   *
-   * @param key
-   * @param value
-   * @returns {*}
+   * A method used to set an item in localStorage
+   * @param {any} key - The unique key
+   * @param {any} value - The value mapping to this key 
+   * @returns {any}
    */
   setItem: (key, value) => {
     try {
@@ -42,15 +51,15 @@ export const LocalStorage = {
   },
 
   /**
-   *
-   * @param key
-   * @param defaultValue
+   * A method used to get an item from localStorage
+   * @param {any} key - The unique key
+   * @param {any} defaultValue - The value to be retrurned if the value mapping to this key is undefined/null 
    * @returns {any}
    */
   getItem: (key, defaultValue) => {
     try {
       const value = localStorage.getItem(key);
-      if (value === null || typeof value === "undefined") {
+      if (!value) {
         return defaultValue;
       }
       return JSON.parse(value);
@@ -60,8 +69,8 @@ export const LocalStorage = {
   },
 
   /**
-   *
-   * @param key
+   * A method used to remove an item from localStorage
+   * @param {any} key - The unique key
    */
   removeItem: (key) => {
     try {
