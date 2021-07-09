@@ -15,6 +15,8 @@
     cities: "",
     otherAlsoSearchFor: "",
     otherExcludedKeywords: '',
+    days: 14,
+    filterByDays: false,
   };
   const checkboxes = {
     nearMe: false,
@@ -128,6 +130,17 @@
 
     return keywords.map(keyword => `-"${keyword}"`).join(' ');
   }
+  
+  /**
+  * @param {number} dayCount the max. number of days to go back
+  * @returns {string} a string in the format "since:YYYY-MM-DD"
+  */
+  function getSinceDateString(dayCount) {
+    let now = new Date();
+    let delta = dayCount * 864e5; // 1 day = 86400 seconds = 864e5 millis
+    let then = new Date(now - delta);
+    return `since:${then.toISOString().split("T")[0]}`;
+  }
 
   function generateCityLinkObject (city) {
     return {
@@ -147,6 +160,7 @@
       checkboxes.excludeUnverified && '-"not verified"',
       checkboxes.excludeUnverified && '-"unverified"',
       getExcludedKeywordsString(),
+      inputs.filterByDays && getSinceDateString(inputs.days),
     ]
       .filter(Boolean)
       .join(" ");
@@ -361,6 +375,12 @@
             <input type="checkbox" bind:checked={checkboxes.nearMe} id="nearMe" />
             <label for="nearMe">Show Tweets near me</label>
           </div>
+          
+          <div>
+            <input type="checkbox" bind:checked={inputs.filterByDays} id="filterByDays" />
+            <label for="dayCount"><strong>Show only tweets from the last</strong></label>
+            <input type="number" bind:value={inputs.days} id="dayCount" min=1/> days
+          </div>
     
         </div>
       </div>
@@ -377,7 +397,6 @@
 
   <div id="frequent-searches">
     <h2>Frequently Searched Cities</h2>
-
     <ol class="split-three-two">
       {#each popularCityLinks as link (link.href)}
         <li><a href={link.href} target="_blank" rel="noopener noreferrer">{capitalCase(link.city)}</a></li>
